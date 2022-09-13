@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import EducationalDetails from "./EducationalDetails";
 import Experience from "./Experience";
@@ -33,7 +32,7 @@ export default class Resume extends Component {
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
-  
+
   render() {
     const { step } = this.state;
     const {
@@ -60,7 +59,7 @@ export default class Resume extends Component {
     switch (step) {
       case 1:
         return (
-          <PersonalDetails  
+          <PersonalDetails
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             values={values}
@@ -78,6 +77,25 @@ export default class Resume extends Component {
       case 3:
         return (
           <Projects
+            prevStep={this.prevStep}
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+            values={values}
+          />
+        );
+        case 4:
+        return (
+          <Experience
+            prevStep={this.prevStep}
+            nextStep={this.nextStep}
+            handleChange={this.handleChange}
+            values={values}
+          />
+        );
+        case 5:
+        return (
+          <ExtraDetails
+            prevStep={this.prevStep}
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             values={values}
