@@ -9,7 +9,8 @@ import {
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import GetAppIcon from "@mui/icons-material/GetApp";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
+import axios from "axios"
+import { saveAs } from "file-saver";
 
 const useStyles = makeStyles({
   card: {
@@ -42,20 +43,41 @@ const useStyles = makeStyles({
 });
 
 const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
-  const Continue = (e) => {
-    e.preventDefault();
-    nextStep();
-  };
-
-  const Previous = (e) => {
-    e.preventDefault();
-    prevStep();
-  };
   const classes = useStyles();
+  const createAndDownloadPDF = () => {
+    axios
+      .post("/create-pdf", values)
+      .then(() => {
+        axios
+          .get("fetch-pdf", { responseType: "arraybuffer" })
+          .then((res) => {
+            const pdfBlob = new Blob([res.data], {
+              type: "application/pdf",
+            });
+            saveAs(
+              pdfBlob,
+              `${values.firstname}'s Resume.pdf`
+            );
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
   return (
     <div className={classes.card}>
-        <h1 className={classes.heading}>Extra Details</h1>
-      <Grid container spacing={2} alignItems="center" lg={12} style={{marginLeft: "20px"}}>
+      <h1 className={classes.heading}>Extra Details</h1>
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        lg={12}
+        style={{ marginLeft: "20px" }}
+      >
         <Grid item xs={12} lg={4} alignItems="flex-end" alignContent="flex-end">
           <h5>
             <CheckCircleIcon />
@@ -72,7 +94,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             label="Skill 1"
             style={{ width: "90%" }}
             value={values.skill1}
-            onChange={handleChange}
+            onChange={handleChange("skill1")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -86,7 +108,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             label="Skill 2"
             style={{ width: "90%" }}
             value={values.skill2}
-            onChange={handleChange}
+            onChange={handleChange("skill2")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -100,7 +122,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             label="Skill 3"
             style={{ width: "90%" }}
             value={values.skill3}
-            onChange={handleChange}
+            onChange={handleChange("skill3")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -114,7 +136,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             label="Skill 4"
             style={{ width: "90%" }}
             value={values.skill4}
-            onChange={handleChange}
+            onChange={handleChange("skill4")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -129,7 +151,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             label="Skill 5"
             style={{ width: "90%" }}
             value={values.skill5}
-            onChange={handleChange}
+            onChange={handleChange("skill5")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -144,7 +166,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             style={{ width: "90%" }}
             name="skill6"
             value={values.skill6}
-            onChange={handleChange}
+            onChange={handleChange("skill6")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -154,7 +176,13 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
       <br />
       <Divider />
       <br />
-      <Grid container spacing={2} alignItems="flex-start" lg={12} style={{marginLeft: "20px"}}>
+      <Grid
+        container
+        spacing={2}
+        alignItems="flex-start"
+        lg={12}
+        style={{ marginLeft: "20px" }}
+      >
         <Grid item xs={12} lg={4} alignItems="flex-end" alignContent="flex-end">
           <h5>
             <CheckCircleIcon />
@@ -171,7 +199,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             style={{ width: "90%" }}
             name="interest1"
             value={values.interest1}
-            onChange={handleChange}
+            onChange={handleChange("interest1")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -185,7 +213,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             style={{ width: "90%" }}
             name="interest2"
             value={values.interest2}
-            onChange={handleChange}
+            onChange={handleChange("interest2")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -199,7 +227,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             style={{ width: "90%" }}
             name="interest3"
             value={values.interest3}
-            onChange={handleChange}
+            onChange={handleChange("interest3")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -213,7 +241,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             style={{ width: "90%" }}
             name="interest4"
             value={values.interest4}
-            onChange={handleChange}
+            onChange={handleChange("interest4")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -227,7 +255,7 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             style={{ width: "90%" }}
             name="interest5"
             value={values.interest5}
-            onChange={handleChange}
+            onChange={handleChange("interest5")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
@@ -241,26 +269,26 @@ const ExtraDetails = ({ prevStep, nextStep, handleChange, values }) => {
             style={{ width: "90%" }}
             name="interest6"
             value={values.interest6}
-            onChange={handleChange}
+            onChange={handleChange("interest6")}
             InputProps={{
               endAdornment: <InputAdornment position="start" />,
             }}
           />
         </Grid>
       </Grid>
-      <br/>
-            <div className={classes.edu}>
-            <Button
-              variant="contained"
-              endIcon={<GetAppIcon />}
-              style={{ backgroundColor: "Blue", marginLeft: "100px" }}
-              onClick={Previous}
-            >
-              DOWNLOAD RESUME
-            </Button>
-            <br/>
-            </div>
-            <br/>
+      <br />
+      <div className={classes.edu}>
+        <Button
+          variant="contained"
+          endIcon={<GetAppIcon />}
+          style={{ backgroundColor: "Blue", marginLeft: "100px" }}
+          onClick={createAndDownloadPDF}
+        >
+          DOWNLOAD RESUME
+        </Button>
+        <br />
+      </div>
+      <br />
     </div>
   );
 };

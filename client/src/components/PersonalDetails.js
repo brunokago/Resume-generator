@@ -39,17 +39,16 @@ const useStyles = makeStyles({
 });
 
 const PersonalDetails = ({ prevStep, nextStep, handleChange, values }) => {
-  const Continue = e => {
+  const Continue = (e) => {
     e.preventDefault();
     nextStep();
-  }
-  
-  const Previous = e => {
+  };
+
+  const Previous = (e) => {
     e.preventDefault();
     prevStep();
-  }
+  };
   const classes = useStyles();
- 
 
   return (
     <div className={classes.card}>
@@ -62,6 +61,7 @@ const PersonalDetails = ({ prevStep, nextStep, handleChange, values }) => {
               label="First Name"
               variant="outlined"
               className={classes.textfield}
+              value={values.firstName}
               style={{ marginRight: "20px" }}
               onChange={handleChange("firstName")}
             />
@@ -69,13 +69,15 @@ const PersonalDetails = ({ prevStep, nextStep, handleChange, values }) => {
               id="outlined-basic"
               label="Last Name"
               variant="outlined"
+              value={values.lastName}
               className={classes.textfield}
-              onChange={handleChange("firstName")}
+              onChange={handleChange("lastName")}
             />
           </Grid>
           <Grid item xs={12} sm={6} style={{ marginTop: "20px" }}>
             <TextField
-              onChange={handleChange("firstName")}
+              value={values.email}
+              onChange={handleChange("email")}
               id="outlined-basic"
               label="Email"
               variant="outlined"
@@ -90,7 +92,8 @@ const PersonalDetails = ({ prevStep, nextStep, handleChange, values }) => {
               }}
             />
             <TextField
-              onChange={handleChange("firstName")}
+              onChange={handleChange("phone")}
+              value={values.phone}
               id="outlined-basic"
               label="Phone"
               variant="outlined"
@@ -106,9 +109,10 @@ const PersonalDetails = ({ prevStep, nextStep, handleChange, values }) => {
           </Grid>
           <Grid item xs={12} sm={6} style={{ marginTop: "20px" }}>
             <TextField
-              onChange={handleChange("firstName")}
+              onChange={handleChange("website")}
               id="outlined-basic"
               label="Your Website"
+              value={values.wesite}
               variant="outlined"
               className={classes.textfield}
               style={{ marginRight: "20px" }}
@@ -121,9 +125,10 @@ const PersonalDetails = ({ prevStep, nextStep, handleChange, values }) => {
               }}
             />
             <TextField
-              onChange={handleChange("firstName")}
+              onChange={handleChange("github")}
               id="outlined-basic"
               label="Github"
+              value={values.github}
               variant="outlined"
               className={classes.textfield}
               InputProps={{
@@ -137,10 +142,11 @@ const PersonalDetails = ({ prevStep, nextStep, handleChange, values }) => {
           </Grid>
           <Grid item xs={12} sm={6} style={{ marginTop: "20px" }}>
             <TextField
-              onChange={handleChange("firstName")}
+              onChange={handleChange("linkedin")}
               id="outlined-basic"
               label="Linkedin"
               variant="outlined"
+              value={values.linkedin}
               className={classes.textfield}
               style={{ marginRight: "20px" }}
               InputProps={{
@@ -152,9 +158,10 @@ const PersonalDetails = ({ prevStep, nextStep, handleChange, values }) => {
               }}
             />
             <TextField
-              onChange={handleChange("firstName")}
+              onChange={handleChange("twitter")}
               id="outlined-basic"
               label="Twitter"
+              value={values.twitter}
               variant="outlined"
               className={classes.textfield}
               InputProps={{
